@@ -1,138 +1,170 @@
-<!-- <template>
-    <div style="display: flex; flex-direction: column-reverse;">
-        <v-toolbar style="border-radius: 15px; height: 100px;">
-            <v-toolbar-title class="text-grey" style="border-radius: 50px; text-align: right;">
-                Title
-            </v-toolbar-title>
-            <v-text-field style="border-radius: 5px;" placeholder="Search for category, name, keyword, etc."
-                prepend-inner-icon="mdi-magnify"></v-text-field>
-        </v-toolbar>
-        <h1 style="text-align: right;">Assessment and Certification</h1>
-    </div>
-    <v-main
-        style="--v-layout-left:56px; --v-layout-right:0px;/* --v-layout-top:128px; */ --v-layout-bottom:550px;"></v-main>
+<template>
+    <v-row no-gutters class="mb-5">
+        <v-col class="mx-16">
+            <h1>Frequently Asked Questions</h1>
+        </v-col>
+
+        <v-col class="mr-16" cols="2">
+            <v-btn @click="openDialog(item)" class="py-6"
+                style="border-radius: 15px; background-color: #3C59A6; color: white;" block small>Create
+                New</v-btn>
+        </v-col>
+    </v-row>
+
+    <v-dialog v-model="dialogForm" width="auto">
+        <v-card>
+            <v-card-text>
+                <v-text-field label="Lorem Ipsum"></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn color="primary" block @click="dialogForm = false">Close Dialog</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+
+    <v-card style="border-radius: 15px; background-color: white; box-shadow: 4px 4px 4px 2px #888"
+        class="px-16 pt-5 mx-10 mb-5">
+        <v-row no-gutters>
+            <v-col>
+                <v-toolbar-title class="text-black; text-bold " style="font-weight: bold;">What are you looking
+                    for?</v-toolbar-title>
+            </v-col>
+        </v-row>
+
+        <v-row no-gutters>
+            <v-col>
+                <v-text-field v-model="search" solo prepend-inner-icon="mdi-magnify" style=" flex: 1;"
+                    placeholder="Search for category, name, keyword, etc."></v-text-field>
+            </v-col>
+        </v-row>
+    </v-card>
+
+    <v-card style="border-radius: 15px; background-color: white; box-shadow: 4px 4px 4px 2px #888"
+        class="px-16 pt-5 mx-10 mb-5">
+        <v-table :items="filteredQuestion">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" @change="selectAllRows" />
+                    </th>
+                    <th class="text-left">
+                        Assessment and Certification
+                        <v-icon @click="editItem(item)" size="small">mdi-square-edit-outline</v-icon>
+                    </th>
+                    <th class="text-left">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in filteredQuestion" :key="item.name" @mouseover="hoveredRow = item"
+                    @mouseleave="hoveredRow = null" :class="{ 'highlight': item === hoveredRow }">
+                    <td>
+                        <input type="checkbox" v-model="item.selected" />
+                    </td>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        <v-icon @click="editItem(item)">mdi-square-edit-outline</v-icon>
+                        <v-icon @click="deleteItem(item)" color="red">mdi-trash-can-outline</v-icon>
+                    </td>
+                </tr>
+                <div class="text-center">
+                    <v-pagination v-model="page" :length="15" :total-visible="7"></v-pagination>
+                </div>
+            </tbody>
+        </v-table>
+    </v-card>
+    <v-main class="v-main"></v-main>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            dialogForm: false,
+            search: '',
+            question: [
+                {
+                    name: 'Lorem Sample Data',
+                    selected: false,
+                },
+                {
+                    name: 'Ipsum Sample Data',
+                    selected: false,
+                },
+            ],
+            hoveredRow: null,
+        }
+    },
+    methods: {
+        selectAllRows(event) {
+            const isChecked = event.target.checked;
+            this.question.forEach(item => {
+                item.selected = isChecked;
+            });
+        },
+        editItem(item) {
+            // handle edit action here
+            alert("Test");
+        },
+        deleteItem(item) {
+            const confirmed = confirm(`Are you sure you want to delete ${item.name}?`);
+            if (confirmed) {
+                const index = this.question.indexOf(item);
+                this.question.splice(index, 1);
+            }
+        },
+        openDialog(item) {
+            this.dialogForm = true;
+        },
 
-<style>
-.v-field.v-field--prepended.v-field--variant-filled.v-theme--light {
-    border-radius: 15px;
-    margin-top: 55px;
-}
-</style> -->
-
-
-<!-- <template>
-    <v-container fluid>
-        <v-row class="d-flex align-center justify-center">
-            <v-col cols="12" md="9" lg="8">
-                <h1 class="header">Assessment and Certification</h1>
-            </v-col>
-        </v-row>
-        <v-row class="d-flex align-center justify-center">
-            <v-col cols="12" md="9" lg="8">
-                <v-toolbar dense style="border-radius: 15px; height: 150px;">
-                    <v-toolbar-title class="text-black; text-bold" style="border-radius: 50px; font-weight: bold;">
-                        What are you looking for?
-                    </v-toolbar-title>
-                    <v-text-field flat solo style="border-radius: 5px;"
-                        placeholder="Search for category, name, keyword, etc."
-                        prepend-inner-icon="mdi-magnify"></v-text-field>
-                </v-toolbar>
-            </v-col>
-        </v-row>
-        <v-row class="d-flex align-center justify-center">
-            <v-col cols="12" md="9" lg="8">
-                <v-main style="--v-layout-bottom: 550px;"></v-main>
-            </v-col>
-        </v-row>
-    </v-container>
-</template>
-  
-<style>
-.header {
-    text-align: left;
-}
-
-.v-field.v-field--prepended.v-field--variant-filled.v-theme--light {
-    border-radius: 15px;
-    margin-top: 50px;
-}
-
-@media only screen and (min-width: 768px) {
-    .v-field.v-field--prepended.v-field--variant-filled.v-theme--light {
-        margin-top: 70px;
+    },
+    computed: {
+        filteredQuestion() {
+            if (!this.search) {
+                return this.question;
+            }
+            const searchTerm = this.search.toLowerCase();
+            return this.question.filter(item => {
+                return item.name.toLowerCase().includes(searchTerm);
+            });
+        }
     }
 }
+</script>
 
-@media only screen and (min-width: 1024px) {
-    .v-field.v-field--prepended.v-field--variant-filled.v-theme--light {
-        margin-top: 100px;
-    }
-}
-</style>
-   -->
-
-<!-- <template>
-    <v-container fluid>
-        <h1 class="header">Assessment and Certification</h1>
-        <v-spacer></v-spacer>
-        <v-toolbar style="border-radius: 15px; height: 150px; align-items: center;">
-            <v-toolbar-title class="text-black; text-bold" style="border-radius: 50px; font-weight: bold; flex: 1;">
-                What are you looking for?
-            </v-toolbar-title>
-            <v-text-field flat solo style="border-radius: 5px; flex: 1;"
-                placeholder="Search for category, name, keyword, etc." prepend-inner-icon="mdi-magnify"></v-text-field>
-        </v-toolbar>
-        <v-main
-            style="--v-layout-left:56px; --v-layout-right:0px;/* --v-layout-top:128px; */ --v-layout-bottom:550px;"></v-main>
-    </v-container>
-</template>
-<style>
-.v-field.v-field--prepended.v-field--variant-filled.v-theme--light {
-    border-radius: 15px;
-    margin-top: 150px;
-}
-
-.v-input__control {
-    display: flex;
-    grid-area: control;
-}
-
-.header {
-    margin-left: 50px;
-}
-</style> -->
-
-
-<template  style="background-color: #F7F7FB;">
-    <v-container class="px-16">
-        <h1 class="px-9">Assessment and Certification</h1>
-        <v-container style="border-radius: 15px; background-color: white;" class="px-10">
-
-            <v-row no-gutters>
-                <v-col>
-                    <v-toolbar-title class="text-black; text-bold" style="font-weight: bold;">What are
-                        you looking for?</v-toolbar-title>
-                </v-col>
-            </v-row>
-
-            <v-row no-gutters>
-                <v-col>
-                    <v-text-field solo prepend-inner-icon="mdi-magnify" style=" flex: 1;"
-                        placeholder="Search for category, name, keyword, etc."></v-text-field>
-                </v-col>
-
-            </v-row>
-        </v-container>
-
-
-    </v-container>
-</template>
 
 <style>
 .v-field__input {
-    border-radius: 1000px;
+    border-radius: 10px;
 }
+
+.v-main {
+    --v-layout-top: 0px;
+    background-color: #F7F7FB;
+}
+
+.v-field.v-field--prepended.v-field--variant-filled.v-theme--light {
+    border-radius: 15px;
+}
+
+.v-container {
+    width: 100%;
+    padding: 16px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.px-5 {
+    padding-bottom: 800px !important;
+}
+
+.highlight {
+    background-color: #f5f5f5;
+}
+
 
 .v-main {
     flex: 1 0 auto;
@@ -143,9 +175,5 @@
     padding-top: var(--v-layout-top);
     padding-bottom: var(--v-layout-bottom);
     background-color: #F7F7FB;
-}
-
-.v-field.v-field--prepended.v-field--variant-filled.v-theme--light {
-    border-radius: 15px;
 }
 </style>

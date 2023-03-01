@@ -33,6 +33,22 @@ const routes = [
           title: 'FAQ List'
         }
       },
+      {
+        path: '/clientdata',
+        name: 'Client Data',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/ClientData.vue'),
+        meta: {
+          title: 'Client Data'
+        }
+      },
+      {
+        path: '/summaryreport',
+        name: 'Summary Report',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/SummaryReport.vue'),
+        meta: {
+          title: 'Summary Report'
+        }
+      },
     ],
   },
 ]
