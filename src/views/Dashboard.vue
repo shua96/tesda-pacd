@@ -26,7 +26,7 @@
                                 <ReasonForVisitPieGraph />
                             </v-card>
                         </v-col>
-                        <v-col cols="6" class="pt-12">
+                        <v-col cols="6" class="pt-11">
                             <v-card class="pa-3">
                                 <ActionProvidedPieGraph />
                             </v-card>
