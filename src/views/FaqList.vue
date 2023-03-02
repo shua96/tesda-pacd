@@ -22,8 +22,7 @@
         </v-card>
     </v-dialog>
 
-    <v-card style="border-radius: 15px; background-color: white; box-shadow: 4px 4px 4px 2px #888"
-        class="px-16 pt-5 mx-10 mb-5">
+    <v-card style="border-radius: 15px; background-color: white;" class="px-16 pt-5 mx-10 mb-5 elevation-1">
         <v-row no-gutters>
             <v-col>
                 <v-toolbar-title class="text-black; text-bold " style="font-weight: bold;">What are you looking
@@ -39,8 +38,7 @@
         </v-row>
     </v-card>
 
-    <v-card style="border-radius: 15px; background-color: white; box-shadow: 4px 4px 4px 2px #888"
-        class="px-16 pt-5 mx-10 mb-5">
+    <v-card style="border-radius: 15px; background-color: white;" class="px-16 pt-5 mx-10 mb-5 elevation-1">
         <v-table :items="filteredQuestion">
             <thead>
                 <tr>
